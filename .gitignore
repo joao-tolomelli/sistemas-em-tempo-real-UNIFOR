@@ -1,0 +1,55 @@
+# Arquivo .gitignore para múltiplos projetos STM32CubeIDE em um único repositório
+
+# ####################### #
+# Arquivos de Build       #
+# ####################### #
+# Ignora os diretórios de build mais comuns. O padrão **/ garante que
+# ele encontrará essas pastas dentro de qualquer pasta de projeto.
+**/Debug/
+**/Release/
+**/build/
+**/Drivers/
+
+# Ignora artefatos de build individuais, independente de onde estejam.
+# Útil caso a configuração de build seja alterada.
+*.o      # Arquivos objeto
+*.d      # Arquivos de dependência
+*.su     # Arquivos de utilização de stack (stack usage)
+*.elf    # Arquivo executável e linkável
+*.axf    # Formato executável da ARM
+*.map    # Arquivo de mapa do linker
+*.list   # Arquivo de listagem do assembly
+*.hex    # Arquivo Intel HEX
+*.bin    # Arquivo binário bruto
+
+# ####################################### #
+# Arquivos específicos do STM32CubeIDE/Eclipse #
+# ####################################### #
+# Metadados do workspace. Geralmente não devem ser versionados.
+.metadata/
+.recommenders/
+.vscode/
+
+# Configurações locais do projeto. Ignorar isso evita conflitos
+# de caminhos absolutos e configurações específicas do usuário.
+# Descomente as linhas .project e .cproject se quiser que todos
+# no time usem exatamente a mesma configuração de projeto do IDE.
+# No entanto, a prática recomendada é recriar o projeto a partir
+# dos fontes e do .ioc, tornando o repositório mais limpo.
+.settings/
+# .project
+# .cproject
+
+# Configurações de lançamento (Debug/Run configurations)
+*.launch
+
+# Log de build
+.build-log
+build_config.mk
+
+# ####################### #
+# Arquivos de Backup e Temporários #
+# ####################### #
+*~
+*.swp
+*.bak
