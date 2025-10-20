@@ -1,3 +1,4 @@
+#include "stm32f4xx.h"
 #include "keypad.h"
 
 uint8_t keypad_init()

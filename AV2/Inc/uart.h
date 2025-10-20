@@ -4,5 +4,6 @@
 
 #include "stm32f4xx.h"
 
+void uart2_rxtx_init(void);
 
 #endif

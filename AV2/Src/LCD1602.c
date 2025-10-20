@@ -1,4 +1,5 @@
 #include "stm32f4xx.h"
+#include "tim.h"
 
 
 
@@ -44,25 +45,29 @@ void send_to_lcd (int data, int rs){
 	}
 
 	if (((data>>2)&0x01) == 1){
-		GPIOA->ODR |= (1U<<10);		//d6 pin
+		GPIOB->ODR |= (1U<<10);		//d6 pin
 	}else {
-		GPIOA->ODR &=~(1U<<10);
+		GPIOB->ODR &=~(1U<<10);
 	}
 
 	if (((data>>1)&0x01) == 1){
-		GPIOA->ODR |= (1U<<4);		//d5 pin
+		GPIOB->ODR |= (1U<<4);		//d5 pin
 	}else {
-		GPIOA->ODR &=~(1U<<4);
+		GPIOB->ODR &=~(1U<<4);
 	}
 
 	if (((data>>0)&0x01) == 1){
-		GPIOA->ODR |= (1U<<5);		//d4 pin
+		GPIOB->ODR |= (1U<<5);		//d4 pin
 	}else {
-		GPIOA->ODR &=~(1U<<5);
+		GPIOB->ODR &=~(1U<<5);
 	}
 
 	// Habilita o enable do LCD
 	GPIOC->ODR |= (1U<<7);
+	delayLCD(100);
+
+	// Desabilita o enable do LCD
+	GPIOC->ODR &=~(1U<<7);
 	delayLCD(100);
 }
 
@@ -99,7 +104,7 @@ void lcd_init(void){
 	delay_ms(50);
 	lcd_send_cmd(0x06);		// Entry mode set --> I/D = 1 (incrementa cursor) & S = 0 (não shift)
 	delay_ms(50);
-	lcd_send_cmd(0x06);		// Display on/off control --> D = 1, C e B = 0. (Cursor e blink, últimos 2 bits)
+	lcd_send_cmd(0x0C);		// Display on/off control --> D = 1, C e B = 0. (Cursor e blink, últimos 2 bits)
 
 }
 

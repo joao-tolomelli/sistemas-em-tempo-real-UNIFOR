@@ -5,9 +5,11 @@
 #define GPIOAEN     (1U<<0)
 #define UART2EN     (1U<<17)
 
-#define CR1_TE      (1U<<3)
 #define CR1_RE		(1U<<2)
+#define CR1_TE      (1U<<3)
+#define CR1_RXNEIE	(1U<<5)
 #define CR1_UE      (1U<<13)
+
 #define SR_TXE      (1U<<7)
 #define SR_RXNE		(1U<<5)
 
@@ -60,8 +62,14 @@ void uart2_rxtx_init(void)
     /* Configura o baudrate */
     uart_set_baudrate(USART2, APB1_CLK, UART_BAUDRATE);
 
-    /* Habilita a transmissão serial */
+    /* Habilita a transmissão e recepção serial */
     USART2->CR1 = (CR1_TE | CR1_RE);
+
+    /* Habilita a interrupção da recepção serial - RXNE */
+    USART2->CR1 |= CR1_RXNEIE;
+
+    /* Habilita a interrupção serial no controlador NVIC */
+    NVIC_EnableIRQ(USART2_IRQn);
 
     /* Habilita a uart2 */
     USART2->CR1 |= CR1_UE;
